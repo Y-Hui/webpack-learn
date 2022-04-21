@@ -20,6 +20,7 @@ const configuration: Configuration = {
   module: {
     rules: [
       { test: /\.txt$/, type: 'asset/source' },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       { test: /\.(png|jpe?g|gif)$/, type: 'asset' },
     ],
   },
