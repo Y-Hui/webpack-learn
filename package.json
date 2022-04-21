@@ -9,10 +9,14 @@
     "build": "yarn workspace @webpack-learn/learn build"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^17.0.25",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
+    "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
     "eslint": "^8.13.0",
@@ -34,6 +38,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
+    "@babel/runtime": "^7.17.9",
     "lodash-es": "^4.17.21"
   }
 }
