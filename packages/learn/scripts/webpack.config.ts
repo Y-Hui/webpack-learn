@@ -22,6 +22,7 @@ const configuration: Configuration = {
       { test: /\.txt$/, type: 'asset/source' },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       { test: /\.(png|jpe?g|gif)$/, type: 'asset' },
+      { test: /\.(woff|woff2|eot|ttf)$/i, type: 'asset/resource' },
     ],
   },
   plugins: [
