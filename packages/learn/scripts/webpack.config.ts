@@ -11,6 +11,11 @@ const configuration: Configuration = {
     path: appPaths.distDir,
     filename: '[name].[contenthash:6].bundle.js',
   },
+  resolve: {
+    alias: {
+      '@': appPaths.appSrc,
+    },
+  },
   module: {
     rules: [
       { test: /\.txt$/, type: 'asset/source' },
