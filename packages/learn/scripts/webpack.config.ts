@@ -15,6 +15,7 @@ const configuration: Configuration = {
     alias: {
       '@': appPaths.appSrc,
     },
+    extensions: appPaths.moduleFileExtensions.map((ext) => `.${ext}`),
   },
   module: {
     rules: [
