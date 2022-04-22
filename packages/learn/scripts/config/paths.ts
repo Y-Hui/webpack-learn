@@ -25,5 +25,6 @@ export default {
   appIndexFile: resolveApp('src/index'),
   appSrc: resolveApp('src'),
   distDir: resolveApp('dist'),
+  appNodeModules: resolveApp('node_modules'),
   moduleFileExtensions,
 }

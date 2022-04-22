@@ -1,12 +1,24 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack, { Configuration } from 'webpack'
+import { Configuration as DevServer } from 'webpack-dev-server'
 
 import appPaths from './config/paths'
 
-const configuration: Configuration = {
-  mode: 'production',
+const ENV = (process.env.NODE_ENV || 'development') as
+  | 'development'
+  | 'production'
+
+const isProduction = ENV === 'production'
+
+const configuration: Configuration & DevServer = {
+  mode: ENV,
+  devtool: isProduction ? false : 'cheap-module-source-map',
   entry: appPaths.appIndexFile,
+  devServer: {
+    static: appPaths.distDir,
+    port: 3000,
+  },
   output: {
     path: appPaths.distDir,
     filename: '[name].[contenthash:6].bundle.js',
@@ -15,6 +27,7 @@ const configuration: Configuration = {
     alias: {
       '@': appPaths.appSrc,
     },
+    modules: ['node_modules', appPaths.appNodeModules],
     extensions: appPaths.moduleFileExtensions.map((ext) => `.${ext}`),
   },
   module: {
@@ -26,6 +39,7 @@ const configuration: Configuration = {
       {
         test: /\.(js|mjs|jsx|ts|tsx)$/,
         loader: 'babel-loader',
+        include: appPaths.appSrc,
         options: {
           presets: ['@babel/preset-env'],
           plugins: ['@babel/plugin-transform-runtime'],
