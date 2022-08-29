@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES6",
+    "declaration": true,
+    "declarationMap": true,
+    "removeComments": true,
+    "incremental": true,
+    "noLib": false,
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
@@ -13,10 +18,10 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": ".",
-    "rootDir": "."
+    "jsx": "preserve",
+    "composite": true,
   },
-  "include": ["packages/**/*"]
+  "include": ["./packages/**/*"],
+  "exclude": ["./node_modules/**/*"],
+  "references": [{ "path": "./packages/learn/" }, { "path": "./packages/utils/" }]
 }

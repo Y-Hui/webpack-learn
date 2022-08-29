@@ -1,6 +1,6 @@
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack, { Configuration } from 'webpack'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { Configuration as DevServer } from 'webpack-dev-server'
 
 import appPaths from './config/paths'
@@ -22,6 +22,8 @@ const configuration: Configuration & DevServer = {
   output: {
     path: appPaths.distDir,
     filename: '[name].[contenthash:6].bundle.js',
+    // 清空 build 后的文件夹
+    clean: true,
   },
   resolve: {
     alias: {
@@ -41,19 +43,34 @@ const configuration: Configuration & DevServer = {
         loader: 'babel-loader',
         include: appPaths.appSrc,
         options: {
-          presets: ['@babel/preset-env'],
+          presets: [
+            '@babel/preset-env',
+            ['@babel/preset-typescript', { optimizeConstEnums: true }],
+          ],
           plugins: ['@babel/plugin-transform-runtime'],
         },
       },
     ],
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   plugins: [
     new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin({
       template: appPaths.appHtml,
     }),
-    new CleanWebpackPlugin(),
-  ],
+    isProduction
+      ? new BundleAnalyzerPlugin({
+          openAnalyzer: false,
+        })
+      : null,
+  ].filter(
+    (item): item is NonNullable<Configuration['plugins']>[number] =>
+      item !== null,
+  ),
 }
 
 export default configuration
